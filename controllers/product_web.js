@@ -21,7 +21,7 @@ Product.sequelize.Promise.all([
       offset: trangdangxem,
       order: '"view" DESC'
     })
-  ]).spread(function(newProduct,topProduct){
+  ]).spread(function(newProduct){
       res.send(newProduct)
       // res.render('./pages/index',{topProduct:topProduct,sanphammoi:newProduct})
     })
