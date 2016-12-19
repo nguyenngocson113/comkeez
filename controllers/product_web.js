@@ -14,7 +14,7 @@ exports.queryNewProduct = function(req, res) {
     Product.findAll({
       limit: sosp1trang,
       offset: trangdangxem,
-      order: '"createdAt" DESC'
+      order: '"id" DESC'
     })
     // Product.findAll({
     //   limit: sosp1trang,
