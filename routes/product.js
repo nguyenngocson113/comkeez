@@ -9,7 +9,7 @@ var upload = multer({
 });
 
 /*GET*/
-router.get('/trangchu',FilesControllerWeb.queryNewProduct)
+router.get('/trangchu/:trang',FilesControllerWeb.queryNewProduct)
 
 // router.get('/getNewProduct/:trang', FilesController.getNewProduct);
 // router.get('/getNewProduct/:trang', FilesControllerWeb.getNewProduct);
