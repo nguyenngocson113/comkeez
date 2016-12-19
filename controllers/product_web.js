@@ -16,11 +16,11 @@ Product.sequelize.Promise.all([
       offset: trangdangxem,
       order: '"createdAt" DESC'
     }),
-    Product.findAll({
-      limit: sosp1trang,
-      offset: trangdangxem,
-      order: '"view" DESC'
-    })
+    // Product.findAll({
+    //   limit: sosp1trang,
+    //   offset: trangdangxem,
+    //   order: '"view" DESC'
+    // })
   ]).spread(function(newProduct){
       res.send(newProduct)
       // res.render('./pages/index',{topProduct:topProduct,sanphammoi:newProduct})
