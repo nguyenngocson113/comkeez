@@ -8,20 +8,21 @@ var Product   = sequelize.import('../models/product');
 exports.queryNewProduct = function(req, res) {
   var sosp1trang = 6;
   var trangdangxem = req.params.trang;
+  var offSet = (trangdangxem-1)*sosp1trang;
   var product = [];
   var topProduct = [];
-// Product.sequelize.Promise.all([
+Product.sequelize.Promise.all([
+    Product.findAll({
+      limit: sosp1trang,
+      offset: offSet,
+      order: '"createdAt" DESC'
+    }),
     Product.findAll({
       limit: sosp1trang,
       offset: trangdangxem,
-      order: '"id" DESC'
+      order: '"view" DESC'
     })
-    // Product.findAll({
-    //   limit: sosp1trang,
-    //   offset: trangdangxem,
-    //   order: '"view" DESC'
-    // })
-.then(function(newProduct){
+  ]).spread(function(newProduct,topProduct){
       res.send(newProduct)
       // res.render('./pages/index',{topProduct:topProduct,sanphammoi:newProduct})
     })
