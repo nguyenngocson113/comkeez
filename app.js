@@ -1,6 +1,5 @@
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -10,24 +9,52 @@ var router = express.Router();
 var passport = require('passport');
 var flash = require('connect-flash');
 var session = require('express-session'); // session middleware
-// var passport = require('./config/passport');
+var favicon = require('serve-favicon');
+var SequelizeStore = require('connect-session-sequelize')(session);
 // Connect to database
 var pg = require('pg')
+
+
+
 var configDB = require('./config/database.js');
+
+var Sequelize = require('sequelize');
+var db = new Sequelize(configDB.url);
+var SequelizeStore = require('connect-session-sequelize')(session.Store);
+
+var sessionStore = new SequelizeStore({
+   db: db,
+   checkExpirationInterval: 15 * 60 * 1000,
+   expiration: 7 * 24 * 60 * 60 * 1000
+});
+
+
+
+
 require('./config/passport')(passport); // pass passport for configuration
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.png')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session({ secret: 'zomaareenstukjetekstDatjenietzomaarbedenkt' })); // session secret
+app.use(session({ secret: 'zomaareenstukjetekstDatjenietzomaarbedenkt' ,
+  resave:false,
+  saveUninitialized:false,
+  store: sessionStore
+
+})); // session secret
+app.use(function(req, res, next) {
+    res.locals.session = req.session;
+    next();
+});
+sessionStore.sync()
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session

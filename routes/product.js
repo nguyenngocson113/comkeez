@@ -1,6 +1,13 @@
 var express = require('express');
 var router = express.Router();
 var FilesControllerWeb = require('../controllers/product_web');
+var configDB = require('../config/database.js');
+
+var Sequelize = require('sequelize');
+var sequelize = new Sequelize(configDB.url);
+
+var Cart = require('../models/cart');
+var Product   = sequelize.import('../models/product');
 
 var multer = require('multer');
 
@@ -9,7 +16,38 @@ var upload = multer({
 });
 
 /*GET*/
-router.get('/trangchu/:trang',FilesControllerWeb.queryNewProduct)
+// router.get('/trangchu',FilesControllerWeb.queryNewProduct)
+router.get('/homepage',FilesControllerWeb.queryProduct)
+router.get('/sanpham/:trang',FilesControllerWeb.queryProduct)
+
+router.get('/banhman/:trang',FilesControllerWeb.queryProductMan)
+router.get('/banhman',FilesControllerWeb.queryProductMan)
+
+router.get('/banhngot/:trang',FilesControllerWeb.queryProductNgot)
+router.get('/banhngot',FilesControllerWeb.queryProductNgot)
+
+router.get('/banhcrepe/:trang',FilesControllerWeb.queryProductCrepe)
+router.get('/banhcrepe',FilesControllerWeb.queryProductCrepe)
+
+router.get('/banhtraicay/:trang',FilesControllerWeb.queryProductPizza)
+router.get('/banhpizza',FilesControllerWeb.queryProductPizza)
+
+router.get('/banhsukem/:trang',FilesControllerWeb.queryProductSu)
+router.get('/banhsukem',FilesControllerWeb.queryProductSu)
+
+router.get('/banhtraicay/:trang',FilesControllerWeb.queryProductFruit)
+router.get('/banhtraicay',FilesControllerWeb.queryProductFruit)
+
+router.get('/banhkem/:trang',FilesControllerWeb.queryProductKem)
+router.get('/banhkem',FilesControllerWeb.queryProductKem)
+
+
+router.get('/chitiet/:trang',FilesControllerWeb.queryChitiet)
+
+router.get('/add-to-cart/:id',FilesControllerWeb.addCart)
+router.get('/checkout',FilesControllerWeb.giohang);
+router.post('/remove',FilesControllerWeb.removeItem);
+router.post('/emptycart',FilesControllerWeb.removeItem);
 
 // router.get('/getNewProduct/:trang', FilesController.getNewProduct);
 // router.get('/getNewProduct/:trang', FilesControllerWeb.getNewProduct);

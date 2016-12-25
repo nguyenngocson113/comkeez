@@ -5,11 +5,11 @@
 		<div class="visible-xs clearfix"></div>
 		<nav class="main-menu">
 			<ul class="l-inline ov">
-				<li><a href=".">Trang chủ</a>
+				<li><a href="./homepage">Trang chủ</a>
 					<ul class="sub-menu">
-					@foreach($type as $t)
-						<li><a href="{{$t->id}}">{{$t->name}}</a></li>
-					@endforeach
+					<%loai.forEach(function(loai){%>
+						<li><a href="/<%= loai.route %>"><%= loai.name%></a></li>
+					<%})%>
 					</ul>
 				</li>
 				<li><a href="#">Pages</a>
@@ -179,7 +179,7 @@
 								<div class="single-item">
 
 									<div class="single-item-header">
-										<a href="chitiet/{{$item->id}}.html"><img src="assets/dest/images/products/<%=sp.image%>" alt="" height="250px"></a>
+										<a href="chitiet/<%=sp.id%>"><img src="assets/dest/images/products/<%=sp.image%>" alt="" height="250px"></a>
 									</div>
 									<div class="single-item-body">
 										<p class="single-item-title"><%=sp.name%></p>
@@ -189,8 +189,8 @@
 										</p>
 									</div>
 									<div class="single-item-caption">
-										<a class="add-to-cart pull-left" href="{{ route('giohang.addToCart',['id' =>$item->id]) }}"><i class="fa fa-shopping-cart"></i></a>
-										<a class="beta-btn primary" href="{{ route('chitietsanpham',['id' => $item->id]) }}">Details <i class="fa fa-chevron-right"></i></a>
+										<a  class="add-to-cart pull-left" href="/chitiet/<%=sp.id%>" ><i class="fa fa-shopping-cart"></i></a>
+										<a class="beta-btn primary" href="/chitiet/<%=sp.id%>">Details <i class="fa fa-chevron-right"></i></a>
 										<div class="clearfix"></div>
 									</div>
 								</div>
@@ -200,18 +200,33 @@
 						<div class="row">
 							<div class="col-md-3"></div>
 							<div class="col-md-6"><ul class="pagination">
-              	<li class="disabled"><span>&laquo;</span></li>
-                    <li class="active"><span>1</span></li>
-                    <li><a href="http://ngochuong.nhodalat.com?page=2">2</a></li>
-                    <li><a href="http://ngochuong.nhodalat.com?page=3">3</a></li>
-                    <li><a href="http://ngochuong.nhodalat.com?page=4">4</a></li>
-                    <li><a href="http://ngochuong.nhodalat.com?page=5">5</a></li>
-                    <li><a href="http://ngochuong.nhodalat.com?page=6">6</a></li>
-                    <li><a href="http://ngochuong.nhodalat.com?page=7">7</a></li>
-                    <li><a href="http://ngochuong.nhodalat.com?page=8">8</a></li>
-                    <li><a href="http://ngochuong.nhodalat.com?page=9">9</a></li>
-                    <li><a href="http://ngochuong.nhodalat.com?page=10">10</a></li>
-                    <li><a href="http://ngochuong.nhodalat.com?page=11">11</a></li>
+										<% if (pageCount > 1) { %>
+	        <ul class="pagination">
+	            <% if (currentPage > 1) { %>
+	                <li><a href="/homepage">&laquo;</a></li>
+	            <% } %>
+	            <% var i = 1;
+	            if (currentPage > 5) {
+	                i = +currentPage - 4;
+	            } %>
+	            <% if (i !== 1) { %>
+	                <li class="disabled"><a href="#">...</a></li>
+	            <% } %>
+	            <% for (i; i<=pageCount; i++) { %>
+	                <% if (currentPage == i) { %>
+	                    <li class="active"><span><%= i %> <span class="sr-only">(current)</span></span></li>
+	                <% } else { %>
+	                    <li><a href="/sanpham/<%= i %>"><%= i %></a></li>
+	                <% } %>
+	                <% if (i == (+currentPage + 4)) { %>
+	                    <li class="disabled"><a href="#">...</a></li>
+	                <% break; } %>
+	            <% } %>
+	            <% if (currentPage != pageCount) { %>
+	                <li><a href="/sanpham/<%= pageCount %>">&raquo;</a></li>
+	            <% } %>
+	        </ul>
+	    <% } %>
             </ul>
 </div>
 
@@ -230,7 +245,7 @@
 								<div class="single-item">
 
 									<div class="single-item-header">
-										<a href="chitiet/{{$item->id}}.html"><img src="assets/dest/images/products/<%=sp.image%>" alt="" height="250px"></a>
+										<a href="chitiet/<%=sp.id%>"><img src="assets/dest/images/products/<%=sp.image%>" alt="" height="250px"></a>
 									</div>
 									<div class="single-item-body">
 										<p class="single-item-title"><%=sp.name%></p>

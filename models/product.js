@@ -4,7 +4,7 @@ module.exports = function(sequelize, DataTypes) {
 		image		  : DataTypes.STRING,
 	  unit_price		  : DataTypes.STRING,
 		promotion_price   : DataTypes.STRING,
-		id_type    : DataTypes.INTEGER,
+		typeProductId    : DataTypes.INTEGER,
     description    : DataTypes.STRING,
     unit    : DataTypes.STRING,
     view    : DataTypes.INTEGER,

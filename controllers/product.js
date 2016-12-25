@@ -84,7 +84,7 @@ exports.getProductType = function(req,res,callback){
   var trangdangxem = req.params.trang;
   var off = (trangdangxem - 1) * sosp1trang;
   var products = [];
-  pg.connect(conString,function(err,client,done){
+  pg.connect(function(err,client,done){
     if(err){
       console.error('error running query', err);
       return callback(err);
@@ -109,7 +109,7 @@ exports.getProductBySearch = function(req,res,callback){
   var txtSp = req.body.txtSp;
   var products = [];
 
-  pg.connect(conString,function(err,client,done){
+  pg.connect(function(err,client,done){
     if(err){
       console.error('error running query', err);
       return callback(err);
@@ -135,7 +135,7 @@ exports.getProductViewMost = function(req, res,callback) {
   var trangdangxem = req.params.trang;
   var off = (trangdangxem - 1) * sosp1trang;
   var products= [];
-  pg.connect(conString,function(err,client,done){
+  pg.connect(function(err,client,done){
     if(err){
       console.error('error running query', err);
       return callback(err);
@@ -158,7 +158,7 @@ exports.getProductViewMost = function(req, res,callback) {
 }
 exports.getProducts = function(req, res,callback) {
   var products= [];
-  pg.connect(conString,function(err,client,done){
+  pg.connect(function(err,client,done){
     if(err){
       console.error('error running query', err);
       return callback(err);

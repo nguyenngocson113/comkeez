@@ -3,5 +3,6 @@ module.exports = function(sequelize, DataTypes) {
 		name			: DataTypes.STRING,
 		image		  : DataTypes.STRING,
     description    : DataTypes.STRING,
+		route : DataTypes.STRING
 	})
 }
