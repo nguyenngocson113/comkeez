@@ -2,18 +2,22 @@ var express = require('express');
 var router = express.Router();
 var FilesController = require('../controllers/users');
 
-router.get('/signin',FilesController.signin)
+router.get('/signup',FilesController.signin)
 router.get('/profile',isLoggedIn,FilesController.getProfile)
 router.get('/logout',FilesController.logout)
 router.get('/login',FilesController.login)
 //=========================POST==============================
 router.post('/login', FilesController.plogin)
-
+router.post('/signup', FilesController.psignin);
+router.get('/auth/facebook', FilesController.loginFace);
+// handle the callback after facebook has authenticated the user
+router.get('/auth/facebook/callback',FilesController.aLoginFace);
+router.get('/signin',FilesController.index)
 function isLoggedIn(req, res, next) {
 	if (req.isAuthenticated())
 		return next();
 
-	res.redirect('/');
+	res.redirect('/homepage');
 }
 module.exports= router;
 // module.exports = function(router, passport) {

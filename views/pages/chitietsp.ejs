@@ -1,4 +1,5 @@
 <% include ../layout/master %>
+
 <div class="header-bottom color-div">
 	<div class="container">
 		<a class="visible-xs beta-menu-toggle pull-right" href="#"><span class='beta-menu-toggle-text'>Menu</span> <i class="fa fa-bars"></i></a>
@@ -92,68 +93,71 @@
 </div> <!-- .header-bottom -->
 
 
-
 <div class="container">
-	<div id="content" class="space-top-none">
-		<div class="main-content">
-			<div class="space10">&nbsp;</div>
-
-			@include('pages.trangchu.beta-banner')
-			<div class="space60">&nbsp;</div>
-			<div class="row">
-
-				</div> <!-- .aside -->
-				<div class="col-sm-12">
-					<div class="beta-products-list">
-
-
-						<div class="row">
-							<div class="col-md-4">
-								<div class="single-item">
-
-									<div class="single-item-header">
-										<a href="chitiet/{{$item->id}}.html"><img src="assets/dest/images/products/<%=sp.image%>" alt="" height="250px"></a>
-									</div>
-									<div class="single-item-body">
-										<p class="single-item-title"><%=sp.name%></p>
-										<p class="single-item-price">
-											<span class="flash-del"><%=sp.unit_price%></span>
-											<span class="flash-sale"><%=sp.promotion_price%></span>
-										</p>
-									</div>
-									<div class="single-item-caption">
-										<a id="btn-cart" class="add-to-cart pull-left" href="/add-to-cart/<%=sp.id%>"><i class="fa fa-shopping-cart"></i></a>
-										<div class="clearfix"></div>
-									</div>
-								</div>
-							</div>
+	<div id="content">
+		<div class="row">
+			<div class="col-sm-9">
+				<div class="row">
+					<div class="col-sm-4">
+						<img src="assets/dest/images/products/<%=sp.image%>" alt="">
+					</div>
+					<div>
+						<div class="single-item-body">
+							<p class="single-item-title"><%=sp.name%></p>
+							<p class="single-item-price">
+								<span><%=sp.promotion_price%></span>
+							</p>
 						</div>
-						<div class="row">
-							<div class="col-md-3"></div>
-							<div class="col-md-6"><ul class="pagination">
-
-</div>
-
-							<div class="col-md-3"></div>
-						</div>
-					</div> <!-- .beta-products-list -->
-
-					<div class="space50">&nbsp;</div>
-
-					<div class="beta-products-list">
-
-
-						<div class="space40">&nbsp;</div>
-
-					</div> <!-- .beta-products-list -->
+						<div class="clearfix"></div>
+						<div class="space20">&nbsp;</div>
+					</div>
 				</div>
-			</div> <!-- end section with sidebar and main content -->
+				<div class="space40">&nbsp;</div>
+				<div class="woocommerce-tabs">
+					<div class="single-item-options">
+						<a class="add-to-cart" class="add-to-cart pull-left" data-id="<%=sp.id%>" ><i class="fa fa-shopping-cart"></i></a>
+					</div>
+					<ul class="tabs">
+						<li><a href="#tab-description">Description</a></li>
+					</ul>
 
+					<div class="panel" id="tab-description">
+						<p><%=sp.description%></p>
+					</div class="row">
 
-		</div> <!-- .main-content -->
+					</div>
+					<%comment.forEach(function(bl){%>
+					<div class="chat-panel panel panel-default">
+								<div class="panel-heading">
+									 <div class="row">
+											 <div class="col-xs-1">
+												 <img src="http://graph.facebook.com/<%=bl.user.facebookid%>/picture?type=square" class="img-circle">
+											 </div>
+											 <div class="col-xs-9 text-left">
+											 <div ><%=bl.user.facebookname%></div>
+													 <div style="padding-top: 15px"><%=bl.content%></div>
+											 </div>
+									 </div>
+								 </div>
+					</div>
+			<%})%>
+			<form class="shipping-form"  method="post" role="form" data-toggle="validator" novalidate="false">
+				<div class="col-xs-12 col-md-12">
+			      <div class="form-group">
+			        <input type="text"  id="binhluan"  placeholder="Viết bình luận">
+							<input type="hidden" id="idface" value="<%=user.id%>">
+							<input type="hidden" id="idPost" value="<%=sp.id%>">
+			      </div>
+			  </div>
+			<div class="text-right col-xs-2 col-md-6">
+					<a id="comment" class="btn btn-default">Bình luận</a>
+				</div>
+		</form>
+
 	</div> <!-- #content -->
+</div> <!-- .container -->
 </div>
-
+</div>
 
 <%include ../layout/footer %>
 	<!-- #footer -->

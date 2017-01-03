@@ -1,61 +1,11 @@
-<%if(session.cart == null){%>
-<div id="header">
-	<div class="header-top">
-		<div class="container">
-			<div class="pull-left auto-width-left">
-				<ul class="top-menu menu-beta l-inline">
-					<li><a href="/homepage"><i class="fa fa-home"></i> Home</a></li>
-				</ul>
-			</div>
-			<div class="pull-right auto-width-right">
-				<ul class="top-details menu-beta l-inline">
-					<li><a href="#"><i class="fa fa-user"></i> Your Account</a></li>
-					<li><a href="#"><i class="fa fa-user"></i> Your Account</a></li>
-				</ul>
-			</div>
-			<div class="clearfix"></div>
-		</div> <!-- .container -->
-	</div> <!-- .header-top -->
-	<div class="header-body">
-		<div class="container beta-relative">
-			<div class="pull-left">
-				<a href="/homepage" id="logo"><img src="assets/dest/images/cookie.png" alt=""></a>
-			</div>
-			<div class="pull-right beta-components space-left ov">
-				<div class="space10">&nbsp;</div>
-				<div class="beta-comp">
-					<form role="search" method="get" id="searchform" action="/">
-				        <input type="text" value="" name="s" id="s" placeholder="Search entire store here..." />
-				        <button class="fa fa-search" type="submit" id="searchsubmit"></button>
-					</form>
-				</div>
-				<div class="beta-comp">
-					<div class="cart">
-						<div class="beta-select"><i class="fa fa-shopping-cart"></i> Cart (empty) <i class="fa fa-chevron-down"></i></div>
-							</div>
-						</div>
-					</div> <!-- .cart -->
-				</div>
-			</div>
-			<div class="clearfix"></div>
-		</div> <!-- .container -->
-	</div> <!-- .header-body -->
-</div>
-<script src="jquery-3.1.0.min.js"></script>
 
-<%}else{%>
 	<div id="header">
 		<div class="header-top">
 			<div class="container">
-				<div class="pull-left auto-width-left">
-					<ul class="top-menu menu-beta l-inline">
-						<li><a href="index.html"><i class="fa fa-home"></i> Home</a></li>
-					</ul>
-				</div>
 				<div class="pull-right auto-width-right">
 					<ul class="top-details menu-beta l-inline">
-						<li><a href="#"><i class="fa fa-user"></i> Your Account</a></li>
-						<li><a href="#"><i class="fa fa-user"></i> Your Account</a></li>
+						<li><a href="/signin"><i class="fa fa-user"></i> Sign In</a></li>
+						<li><a href="/profile"><i class="fa fa-user"></i> Your Account</a></li>
 					</ul>
 				</div>
 				<div class="clearfix"></div>
@@ -64,43 +14,32 @@
 		<div class="header-body">
 			<div class="container beta-relative">
 				<div class="pull-left">
-					<a href="index.html" id="logo"><img src="assets/dest/images/cookie.png" alt=""></a>
+					<a href="/homepage" id="logo"><img src="assets/dest/images/cookie.png" alt=""></a>
 				</div>
 				<div class="pull-right beta-components space-left ov">
-					<div class="space10">&nbsp;</div>
 					<div class="beta-comp">
-						<form role="search" method="get" id="searchform" action="/">
-					        <input type="text" value="" name="s" id="s" placeholder="Search entire store here..." />
+						<form action="/search" method="POST" id="searchform" >
+					        <input type="text" value="" name="search" id="frm_search" placeholder="Search entire store here..." />
 					        <button class="fa fa-search" type="submit" id="searchsubmit"></button>
 						</form>
 					</div>
 
+
 					<div class="beta-comp">
 
 						<div class="cart">
-						<div class="beta-select"><i class="fa fa-shopping-cart"></i> Cart <span class="badge"><%=session.cart.totalQty%></span> <i class="fa fa-chevron-down"></i></div>
-							<div class="beta-dropdown cart-body">
-							<%
-							var a = session.cart.items
-							var arr = Object.keys(a).map(function (key) { return a[key]; });
-							console.log(arr);
-							arr.forEach(function(sp){%>
-								<div class="cart-item">
-									<a class="cart-item-edit" href="#"><i class="fa fa-pencil"></i></a>
-									<a class="cart-item-delete" href="#"><i class="fa fa-times"></i></a>
-									<div class="media">
-										<a class="pull-left" href="#"><img src="assets/dest/images/products/<%=sp.item.image%>" alt=""></a>
-										<div class="media-body">
-											<span class="cart-item-title"><%=sp.item.name%></span>
-											<span class="cart-item-amount"><%=sp.qty%>*<span><%=sp.item.promotion_price%></span></span>
-										</div>
-									</div>
-								</div>
-							<%})%>
-
-
+							<%if(!session.cart){%>
+								<div  class="beta-select"><i class="fa fa-shopping-cart"></i> Cart <span id = "cart-count" class="badge">0</span> <i class="fa fa-chevron-down"></i></div>
+							<%}else{%>
+						<div  class="beta-select"><i class="fa fa-shopping-cart"></i> Cart <span id = "cart-count" class="badge"><%=session.cart.totalQty%></span> <i class="fa fa-chevron-down"></i></div>
+						<%}%>
+							<div class="beta-dropdown cart-body" href="/checkout">
 								<div class="cart-caption">
-									<div class="cart-total text-right">Subtotal: <span class="cart-total-value">$34.55</span></div>
+									<%if(!session.cart){%>
+									<div class="cart-total text-right">Subtotal: <span class="cart-total-value">0</span></div>
+									<%}else{%>
+										<div class="cart-total text-right">Subtotal: <span class="cart-total-value"><%=session.cart.totalPrice%></span></div>
+										<%}%>
 									<div class="clearfix"></div>
 
 									<div class="center">
@@ -115,7 +54,3 @@
 				<div class="clearfix"></div>
 			</div> <!-- .container -->
 		</div> <!-- .header-body -->
-
-	</div>
-	<script src="jquery-3.1.0.min.js"></script>
-	<%}%>

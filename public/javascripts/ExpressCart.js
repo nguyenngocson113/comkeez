@@ -52,47 +52,71 @@ $(document).ready(function() {
     });
 
 
+
+
     $(".add-to-cart").click(function() {
         $.ajax({
 			method: "POST",
-			url: "/admin/product/addtocart",
-			data: { product_id: $(this).attr("data-id") }
+			url: "/add-to-cart",
+			data: { product_id: $(this).attr("data-id") },
+			success: function(data){
+				$("#cart-count").html(data.totalQty)
+				$(".cart-total-value").html(data.totalPrice)
+			}
 		})
-		.success(function(msg) {
-            $("#cart-count").text(msg.total_cart_items);
-            show_notification(msg.message,"success");
-        })
-        .error(function(msg) {
-            show_notification(msg.responseJSON.message,"danger");
-        });
     });
 
+		$("#comment").click(function() {
+        $.ajax({
+			method: "POST",
+			url: "/comment",
+			data: { binhluan: $('#binhluan').val(),idUser: $('#idface').val(),idPost:$('#idPost').val()},
+			success: location.reload()
+
+		})
+    });
+		$("#dathang").click(function() {
+				$.ajax({
+			method: "POST",
+			url: "/dathang",
+			data: { email: $('#ship_email').val(),name:$('#ship_name').val(),address:$('#ship_addr').val(),phone:$('#ship_phone')},
+
+		})
+		});
     $(".cart-delete-button").click(function() {
         $.ajax({
 			method: "POST",
 			url: "/remove",
-			data: { product_id: $(this).attr("data-id") }
+			data: { product_id: $(this).attr("data-id") },
+			success: location.reload()
 		})
-
     });
 
     $(".cart-update-button").click(function() {
         $.ajax({
 			method: "POST",
-			url: "/tang",
-			data: { product_id: $(this).attr("data-id"), product_quantity: $("#" + $(this).attr("data-id")).val() }
+			url: "/updateCart",
+			data: { product_id: $(this).attr("data-id"), product_quantity: $("#" + $(this).attr("data-id")).val() },
+			success: location.reload()
 		})
     });
-
+		// $("#searchsubmit").click(function(){
+		// 	$.ajax({
+		// 		method: "post",
+		// 		url: "/search",
+		// 		data:{txtSearch: $("#frm_search").val()},
+		// 	});
+		// });
     $("#empty-cart").click(function() {
         $.ajax({
 			method: "POST",
-			url: "/admin/product/emptycart"
+			url: "/emptycart",
+			success: location.reload()
 		})
-		.success(function(msg) {
-            $("#cart-count").text(msg.total_cart_items);
-            show_notification(msg.message,"success", true);
-        });
+		// .success(function(msg) {
+    //         $("#cart-count").text(msg.total_cart_items);
+    //         show_notification(msg.message,"success", true);
+    //     });
     });
 
     $('.qty-btn-minus').on('click', function(){
@@ -184,14 +208,15 @@ $(document).ready(function() {
 	});
 
     // resets the order filter
-	$("#btn_search_reset").click(function() {
-        //alert("test");
-        alert(document.location.origin);
-        alert(window.location.protocol + "//" + window.location.host + "/");
-		window.location.replace("/");
-	});
+	// $("#btn_search_reset").click(function() {
+  //       //alert("test");
+  //       alert(document.location.origin);
+  //       alert(window.location.protocol + "//" + window.location.host + "/");
+	// 	window.location.replace("/");
+	// });
 
     // resets the product filter
+
 	$("#btn_product_reset").click(function() {
 		window.location.href = "/admin/products";
 	});
@@ -203,13 +228,20 @@ $(document).ready(function() {
 
 
 	// search button click event
-	$("#btn_search").click(function(event) {
-		if($("#frm_search").val() == ""){
-			show_notification("Please enter a search value", "danger");
-			event.preventDefault();
-		}
-	});
-
+	// $("#btn_search").click(function(event) {
+	// 	if($("#frm_search").val() == ""){
+	// 		show_notification("Please enter a search value", "danger");
+	// 		event.preventDefault();
+	// 	}
+	// });
+	// $(document).ready(function(){
+	//   $("#btnSubmit").click(function(){
+	//     var n = $("#txtPok").val();
+	//     $.post("./timkiem",{txtPok:n},function(data){
+	//       $("#content").html(data);
+	//     })
+	//   })
+	// });
 	if($("#input_notify_message").val() != ""){
 		// save values from inputs
 		var message_val = $("#input_notify_message").val();
@@ -257,6 +289,6 @@ function show_notification(msg, type, reload_page){
     });
 }
 
-function search_form(id) {
-	$('form#'+ id).submit();
-}
+// function search_form(id) {
+// 	$('form#'+ id).submit();
+// }

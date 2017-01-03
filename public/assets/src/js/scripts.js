@@ -30,21 +30,21 @@ BetaDesign.prototype = {
 		beta.absFullwidth();
 		beta.filterItems();
 		beta.accordionHandler();
-	}, 
-
-	initInstragram : function() {
-		dug({
-	      endpoint: 'https://api.instagram.com/v1/users/1140781/media/recent/?client_id=01a35e4dd4bf4d2681e48c88d006636e&count=6',
-	      target : jQuery('#beta-instagram-feed')[0],
-	      cacheExpire : 3600,
-	      template: '\
-            {{#data}}\
-                <a href="{{link}}" target="_blank">\
-                  <img src="{{images.low_resolution.url}}">\
-                </a>\
-            {{/data}}'
-	    });
 	},
+
+	// initInstragram : function() {
+	// 	dug({
+	//       endpoint: 'https://api.instagram.com/v1/users/1140781/media/recent/?client_id=01a35e4dd4bf4d2681e48c88d006636e&count=6',
+	//       target : jQuery('#beta-instagram-feed')[0],
+	//       cacheExpire : 3600,
+	//       template: '\
+  //           {{#data}}\
+  //               <a href="{{link}}" target="_blank">\
+  //                 <img src="{{images.low_resolution.url}}">\
+  //               </a>\
+  //           {{/data}}'
+	//     });
+	// },
 
 	initFilter : function() {
 		if(!jQuery.fn.slider) return;
@@ -84,7 +84,7 @@ BetaDesign.prototype = {
 			opt.forceFullWidth = "on";
 			opt.startheight = 530;
 		}
-		
+
 		jQuery('.tp-banner').revolution(opt);
 	},
 
@@ -270,7 +270,7 @@ BetaDesign.prototype = {
 				data.el = jQuery(layers[i]);
 				animations.push( data );
 			}
-			
+
 			new Animo(animations);
 		});
 	},
@@ -300,9 +300,9 @@ BetaDesign.prototype = {
 			filters.on("click", function() {
 				var $this = jQuery(this);
 				var category = $this.data("filter");
-				
+
 				// filter menu toggle active class
-				$this.addClass("is-active").siblings().removeClass("is-active"); 
+				$this.addClass("is-active").siblings().removeClass("is-active");
 
 				// toggle items based on category
 				for(var i = 0; i < items.length; i++)

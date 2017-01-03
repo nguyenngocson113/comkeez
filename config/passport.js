@@ -198,7 +198,8 @@ module.exports = (passport) => {
 								facebookid: profile.id,
 								facebooktoken: token,
 								facebookname: profile.name.givenName + ' ' + profile.name.familyName,
-								facebookemail:(profile.emails[0].value || '').toLowerCase()
+								facebookemail:(profile.emails[0].value || '').toLowerCase(),
+
 							});
 
 							newUser.save()
@@ -214,7 +215,7 @@ module.exports = (passport) => {
                 user.facebooktoken = token;
 								user.facebookname  = profile.name.givenName + ' ' + profile.name.middleName +' '+ profile.name.familyName;
 								user.facebookemail = (profile.emails[0].value || '').toLowerCase();
-								console.log(profile.name.givenName+ profile.name.familyName);
+								console.log(profile.facebookavartar);
 
                 user.save()
 																				.then( function() {done(null, user);})

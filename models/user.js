@@ -13,8 +13,7 @@ module.exports = function(sequelize, DataTypes) {
 		facebookid		  : DataTypes.STRING,
 		facebooktoken   : DataTypes.STRING,
 		facebookemail   : DataTypes.STRING,
-		facebookname    : DataTypes.STRING
-
+		facebookname    : DataTypes.STRING,
 	},
 	{
 		classMethods: {

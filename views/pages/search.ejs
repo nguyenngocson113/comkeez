@@ -157,7 +157,6 @@
 				</div> <!-- .aside -->
 				<div class="col-sm-12">
 					<div class="beta-products-list">
-						<h4><%=tenloai%></h4>
 
 
 						<div class="row">
@@ -184,41 +183,7 @@
 							</div>
 						<%})%>
 						</div>
-						<div class="row">
-							<div class="col-md-3"></div>
-							<div class="col-md-6"><ul class="pagination">
-										<% if (pageCount > 1) { %>
-	        <ul class="pagination">
-	            <% if (currentPage > 1) { %>
-	                <li><a href="/<%= route%>">&laquo;</a></li>
-	            <% } %>
-	            <% var i = 1;
-	            if (currentPage > 5) {
-	                i = +currentPage - 4;
-	            } %>
-	            <% if (i !== 1) { %>
-	                <li class="disabled"><a href="#">...</a></li>
-	            <% } %>
-	            <% for (i; i<=pageCount; i++) { %>
-	                <% if (currentPage == i) { %>
-	                    <li class="active"><span><%= i %> <span class="sr-only">(current)</span></span></li>
-	                <% } else { %>
-	                    <li><a href="/<%=route%>/<%= i %>"><%= i %></a></li>
-	                <% } %>
-	                <% if (i == (+currentPage + 4)) { %>
-	                    <li class="disabled"><a href="#">...</a></li>
-	                <% break; } %>
-	            <% } %>
-	            <% if (currentPage != pageCount) { %>
-	                <li><a href="/<%=route%>/<%= pageCount %>">&raquo;</a></li>
-	            <% } %>
-	        </ul>
-	    <% } %>
-            </ul>
-</div>
-
-							<div class="col-md-3"></div>
-						</div>
+					
 					</div> <!-- .beta-products-list -->
 
 					<div class="space50">&nbsp;</div>

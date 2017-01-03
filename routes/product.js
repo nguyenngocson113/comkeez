@@ -44,12 +44,16 @@ router.get('/banhkem',FilesControllerWeb.queryProductKem)
 
 router.get('/chitiet/:trang',FilesControllerWeb.queryChitiet)
 
-router.get('/add-to-cart/:id',FilesControllerWeb.addCart)
+router.post('/add-to-cart',FilesControllerWeb.addCart)
 router.get('/checkout',FilesControllerWeb.giohang);
 router.post('/remove',FilesControllerWeb.removeItem);
-router.post('/emptycart',FilesControllerWeb.removeItem);
+router.post('/emptycart',FilesControllerWeb.emptyCart)
+router.post('/updateCart',FilesControllerWeb.updateCart)
+router.post('/dathang',FilesControllerWeb.checkOut)
+router.post('/comment',FilesControllerWeb.comment)
+router.post('/search',FilesControllerWeb.timKiem)
 
-// router.get('/getNewProduct/:trang', FilesController.getNewProduct);
+    // router.get('/getNewProduct/:trang', FilesController.getNewProduct);
 // router.get('/getNewProduct/:trang', FilesControllerWeb.getNewProduct);
 // router.get('/getProductViewMost/:trang', FilesController.getProductViewMost);
 // router.get('/getProducts', FilesController.getProducts);
