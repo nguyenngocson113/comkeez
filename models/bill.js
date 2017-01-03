@@ -4,5 +4,6 @@ module.exports = function(sequelize, DataTypes) {
 		name			: DataTypes.STRING,
 		address		  : DataTypes.STRING,
 		total    : DataTypes.INTEGER,
+		phone : DataTypes.STRING
 	})
 }

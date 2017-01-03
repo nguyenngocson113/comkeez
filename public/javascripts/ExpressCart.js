@@ -91,7 +91,21 @@ $(document).ready(function() {
 			success: location.reload()
 		})
     });
-
+		$(".delete").click(function() {
+        $.ajax({
+			method: "POST",
+			url: "/deleteProduct",
+			data: { product_id: $(this).attr("data-id") },
+			success: location.reload()
+		})
+    });
+		// $(".update").click(function() {
+		// 		$.ajax({
+		// 	method: "POST",
+		// 	url: "/updateProduct",
+		// 	data: { product_id: $(this).attr("data-id") },
+		// })
+		// });
     $(".cart-update-button").click(function() {
         $.ajax({
 			method: "POST",

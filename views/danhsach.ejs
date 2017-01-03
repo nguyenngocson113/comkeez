@@ -1,0 +1,92 @@
+<% include ./admin/layout/master %>
+
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Danh sách sản phẩm</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Danh sách sản phẩm
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Tên loại</th>
+                                    <th>Đơn giá</th>
+                                    <th>Giá khuyến mãi</th>
+                                    <th>Ảnh</th>
+                                    <th>Sửa/Xóa</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <%sanphammoi.forEach(function(sp){%>
+                                <tr>
+                                    <td><%=sp.id%></td>
+                                    <td><%=sp.name%></td>
+                                    <td><%=sp.typeProduct.name%></td>
+                                    <td><%=sp.unit_price%></td>
+                                    <td><%=sp.promotion_price%></td>
+                                    <td><img width="80px" height="60px" src="assets/dest/images/products/<%=sp.image%>"/></td>
+                                    <td><a class= "update" href="/updateProduct/<%=sp.id%>" >Sửa</a> | <a data-id= "<%=sp.id%>" class = "delete">Xóa</a></td>
+                                </tr>
+                                <%})%>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+    <!-- /.row -->
+    <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6"><ul class="pagination">
+                  <% if (pageCount > 1) { %>
+        <ul class="pagination">
+            <% if (currentPage > 1) { %>
+                <li><a href="/listProduct">&laquo;</a></li>
+            <% } %>
+            <% var i = 1;
+            if (currentPage > 5) {
+                i = +currentPage - 4;
+            } %>
+            <% if (i !== 1) { %>
+                <li class="disabled"><a href="#">...</a></li>
+            <% } %>
+            <% for (i; i<=pageCount; i++) { %>
+                <% if (currentPage == i) { %>
+                    <li class="active"><span><%= i %> <span class="sr-only">(current)</span></span></li>
+                <% } else { %>
+                    <li><a href="/listProduct/<%= i %>"><%= i %></a></li>
+                <% } %>
+                <% if (i == (+currentPage + 4)) { %>
+                    <li class="disabled"><a href="#">...</a></li>
+                <% break; } %>
+            <% } %>
+            <% if (currentPage != pageCount) { %>
+                <li><a href="/listProduct/<%= pageCount %>">&raquo;</a></li>
+            <% } %>
+        </ul>
+    <% } %>
+          </ul>
+</div>
+
+            <div class="col-md-3"></div>
+          </div>
+
+</div>
+
+<!-- /#page-wrapper -->
