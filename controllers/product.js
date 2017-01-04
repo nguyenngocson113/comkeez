@@ -129,9 +129,12 @@ exports.getProducts = function(req, res,done) {
 };
 exports.dangnhap = function(req, res,done) {
   var facebookid = req.body.id;
+  console.log(facebookid);
   var facebookname = req.body.name;
+  console.log(facebookname);
   var facebookemail = req.body.email;
-  var newUser = User.build ({facebookid:facebookid,facebookname:facebookname,facebookemail:facebookemail});
+  var facebooktoken = req.body.token;
+  var newUser = User.build ({facebookid:facebookid,facebookname:facebookname,facebookemail:facebookemail,facebooktoken:facebooktoken});
   newUser.save().then(function(){done(null,newUser)}).catch(function(err){done(null,false)})
 };
 exports.binhluan = function(req,res,done){
