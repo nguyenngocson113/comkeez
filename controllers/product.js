@@ -47,16 +47,21 @@ exports.queryTopProduct = function(req, res,done) {
     })
 };
 exports.queryChitiet = function(req, res,done) {
+  var sanpham = [];
     Product.findOne({
       where : {id : req.params.trang},
       attributes: ['name','promotion_price','id','image','description'],
     }).then(function(product){
-      done()
-      res.send(product)
+      sanpham.push(product)
+      done();
+    },function(sanpham){
+      res.send(sanpham)
+
     })
+
+
 }
 exports.queryComment = function(req, res,done) {
-  var comment = []
   Comment.findAll({
   where:{idPost:req.params.id},
   include:[{model:User}],
