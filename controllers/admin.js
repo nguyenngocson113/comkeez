@@ -163,7 +163,7 @@ exports.Bill = function(req, res) {
 exports.detailBill = function(req,res){
   var idBill = req.params.id
   DetailBill.findAll({
-    where : {idBill : 23},
+    where : {idBill : idBill},
     attributes: ['id','idProduct', 'quality','price','updatedAt'],
     include: [{model: Product}]
   }).then(function(detailBill){
