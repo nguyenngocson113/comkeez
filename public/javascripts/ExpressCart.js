@@ -79,8 +79,8 @@ $(document).ready(function() {
 				$.ajax({
 			method: "POST",
 			url: "/dathang",
-			data: { email: $('#ship_email').val(),name:$('#ship_name').val(),address:$('#ship_addr').val(),phone:$('#ship_phone')},
-
+			// data: { email: $('#ship_email').val(),name:$('#ship_name').val(),address:$('#ship_addr').val(),phone:$('#ship_phone')},
+			data : {email: $('#ship_email').val(),name: $('#ship_name').val(),address:$('#ship_addr').val(),phone: $('#ship_phone').val()}
 		})
 		});
     $(".cart-delete-button").click(function() {

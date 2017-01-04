@@ -306,9 +306,6 @@ exports.addCart = function(req, res, next) {
         cart.add(product, product.id);
         req.session.cart = cart;
         var b = JSON.stringify(cart);
-        console.log(b);
-        console.log('------------------------------');
-        console.log(cart.totalQty);
         res.status(200).send(cart)
     });
 };
@@ -343,12 +340,13 @@ exports.updateCart = function(req,res){
 };
 exports.checkOut = function(req,res,done){
   var email = req.body.email;
+  console.log(email);
   var name = req.body.name;
   var address = req.body.address;
   var phone = req.body.phone;
   var cart = new Cart(req.session.cart ? req.session.cart : {});
   var totalPrice = cart.totalPrice;
-  var newBill = Bill.build ({email:email,address:address,name:name,total:totalPrice});
+  var newBill = Bill.build ({email:email,address:address,name:name,total:totalPrice,phone: phone});
   newBill.save()
   .then(function() {
     done (null, newBill)
@@ -363,6 +361,7 @@ exports.checkOut = function(req,res,done){
     done(null, false)
   });
 };
+
 exports.comment = function(req,res,done){
   var idPost = req.body.idPost;
   var idUser = req.body.idUser;

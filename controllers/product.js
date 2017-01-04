@@ -1,181 +1,119 @@
-var pg = require('pg');
 var configDB = require('../config/database.js');
+var Sequelize = require('sequelize');
+// var pg = require('pg').native;
+var pghstore = require('pg-hstore');
+var sequelize = new Sequelize(configDB.url);
+var DetailBill = sequelize.import('../models/detailBill');
+var User = sequelize.import('../models/user')
+var Comment = sequelize.import('../models/comment')
+var Cart = require('../models/cart');
+var Bill = sequelize.import('../models/bill')
+var Product   = sequelize.import('../models/product');
+var TypeProduct = sequelize.import('../models/typeProduct')
+Product.belongsTo(TypeProduct, {foreignKey: 'typeProductId'});
+TypeProduct.hasMany(Product);
+Comment.belongsTo(User,{foreignKey:'userId'});
+User.hasMany(Comment);
 
-var pool = new pg.Pool(configDB.config);
+exports.queryNewProduct = function(req, res,done) {
+  var pageSize = 10;
+	var	currentPage =req.params.trang;
+  var  offSet= (currentPage -1)*pageSize;
 
-exports.getNewProduct = function(req, res, next) {
-  var sosp1trang=10;
-  var trangdangxem = req.params.trang;
-  var off = (trangdangxem - 1) * sosp1trang;
-  var products= [];
-  pool.connect(function(err, client, done) {
-    if(err){
-      console.error('error running query', err);
-      return next(err);
-    }
-
-    client.query('select id,name,image,unit_price,promotion_price, created_at from products order by created_at DESC LIMIT ' +sosp1trang+ ' OFFSET ' +off,function(err,result){
-      done();
-
-      if(err){
-        console.log('err')
-        return next(err);
-      }
-      result.rows.forEach(function(sp){
-          products.push(sp);
-      });
-
-      return res.render('loaisp',{danhsach:products})
-
-    });
-  });
-
+    Product.findAll({
+      limit: pageSize,
+      offset: offSet,
+      order: '"createdAt" DESC'
+    }).then(function(sp){
+      done()
+      res.send(sp)
+    })
 };
-exports.getTypes = function(req,res,callback){
-  var types = [];
-  pg.connect(conString,function(err,client,done){
-    if(err){
-      console.error('error running query', err);
-      return callback(err);
-    }
-    client.query('select id,name,image,description from type_products ',function(err,result){
+exports.queryTopProduct = function(req, res,done) {
+  var pageSize = 10;
+	var	currentPage =req.params.trang;
+  var  offSet= (currentPage -1)*pageSize;
 
-      if(err){
-        console.log('err')
-        return callback(err);
-      }
-        {
-          result.rows.forEach(function(type){
-            types.push(type)
-          })
-          return res.json({types});
-        }
-        done();
-    });
-  });
+    Product.findAll({
+      limit: pageSize,
+      offset: offSet,
+      order: '"view" DESC'
+    }).then(function(sp){
+      done()
+      console.log(sp);
+      res.send(sp)
+    })
+};
+exports.queryChitiet = function(req, res,done) {
+    Product.findOne({
+      where : {id : req.params.trang}
+    }).then(function(product){
+      done()
+      res.send(product)
+    })
 }
-exports.getProduct = function(req,res,callback){
-  var productId = req.params.productId;
-  var product = [];
-  pg.connect(conString,function(err,client,done){
-    if(err){
-      console.error('error running query', err);
-      return callback(err);
-    }
-    client.query('select id,name,image, description from products where id= '+ productId,function(err,result){
-
-      if(err){
-        console.log('err')
-        return callback(err);
-      }
-        {
-          result.rows.forEach(function(sp){
-            product.push(sp)
-          })
-          return res.json({product});
-        }
-        done();
-    });
-  });
+exports.queryComment = function(req, res,done) {
+  var comment = []
+  Comment.findAll({
+  where:{idPost:req.params.id},
+  include:[{model:User}],
+  raw: true,
+}).then(function(cmt){
+  done()
+  res.send(cmt)
+  })
 }
-exports.getProductType = function(req,res,callback){
+exports.queryProductType = function(req,res,done){
   var typeId = req.params.typeId;
-  var sosp1trang=10;
-  var trangdangxem = req.params.trang;
-  var off = (trangdangxem - 1) * sosp1trang;
-  var products = [];
-  pg.connect(function(err,client,done){
-    if(err){
-      console.error('error running query', err);
-      return callback(err);
-    }
-    client.query('select p.id_type ,p.name,p.image,p.unit_price,p.promotion_price from products p inner join type_products t on p.id_type = t.id where t.id =  '+typeId+' LIMIT '+sosp1trang+' OFFSET '+off,function(err,result){
-
-      if(err){
-        console.log('err')
-        return callback(err);
-      }
-        {
-          result.rows.forEach(function(sp){
-            products.push(sp)
-          })
-          return res.json({products});
-        }
+  var pageSize = 10;
+  var currentPage =req.params.trang;
+  var  offSet= (currentPage -1)*pageSize;
+      Product.findAll({
+        where:{typeProductId:typeId},
+        limit: pageSize,
+        offset: offSet,
+        order: '"id" DESC',
+        include:[{model:TypeProduct}]
+      }).then(function(sp){
         done();
-    });
+        res.send(sp)
+      })
+};
+exports.queryType = function(req,res,done){
+  TypeProduct.findAll({
+    order: '"id" ASC',
+    attributes: ['route','name','id','image','description']
+  }).then(function(type){
+    res.send(type)
+  })
+};
+exports.getProductBySearch = function(req,res,done){
+  var txtSp = req.body.txtSp;
+  Product.findAll({
+    where: {name: {$like: '%'+txtSp+'%'}}
+  }).then(function(sp){
+    res.send(sp)
+  })
+}
+exports.productBuy = function(req,res,done){
+  var email = req.body.email;
+  var name = req.body.name;
+  var address = req.body.address;
+  var phone = req.body.phone;
+  var totalPrice = req.body.total;
+  var product = req.body.products;
+  var newBill = Bill.build ({email:email,address:address,name:name,total:totalPrice});
+  newBill.save()
+  .then(function() {
+    done (null, newBill)
+    product.forEach(function(sp){
+      var newDetailBill = DetailBill.build ({idBill:newBill.id,idProduct:sp.idProduct,quality:sp.quality,price:sp.price});
+      newDetailBill.save().then(function(){done(null,newDetailBill)}).catch(function(err){done(null,false)})
+
+    })
+
+    console.log(newBill.id)
+  }).catch(function(err) {
+    done(null, false)
   });
 };
-exports.getProductBySearch = function(req,res,callback){
-  var txtSp = req.body.txtSp;
-  var products = [];
-
-  pg.connect(function(err,client,done){
-    if(err){
-      console.error('error running query', err);
-      return callback(err);
-    }
-    client.query("select id, name, unit_price, image,updated_at,promotion_price  from products where name LIKE '%" +txtSp+ "%'" ,function(err,result){
-
-      if(err){
-        console.log('err')
-        return callback(err);
-      }
-        {
-          result.rows.forEach(function(sp){
-            products.push(sp)
-          })
-          return res.json({products});
-        }
-        done();
-    });
-  });
-}
-exports.getProductViewMost = function(req, res,callback) {
-  var sosp1trang=10;
-  var trangdangxem = req.params.trang;
-  var off = (trangdangxem - 1) * sosp1trang;
-  var products= [];
-  pg.connect(function(err,client,done){
-    if(err){
-      console.error('error running query', err);
-      return callback(err);
-    }
-    client.query('select id,name,image,unit_price,promotion_price, created_at, view from products order by view DESC LIMIT ' +sosp1trang+ ' OFFSET ' +off,function(err,result){
-
-      if(err){
-        console.log('err')
-        return callback(err);
-      }
-        {
-          result.rows.forEach(function(sp){
-            products.push(sp);
-          })
-          return res.json({products})
-        }
-        done();
-    });
-  });
-}
-exports.getProducts = function(req, res,callback) {
-  var products= [];
-  pg.connect(function(err,client,done){
-    if(err){
-      console.error('error running query', err);
-      return callback(err);
-    }
-    client.query('select name from products ',function(err,result){
-
-      if(err){
-        console.log('err')
-        return callback(err);
-      }
-        {
-          result.rows.forEach(function(sp){
-            products.push(sp);
-          })
-          return res.json({products})
-        }
-        done();
-    });
-  });
-}
