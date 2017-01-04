@@ -127,3 +127,10 @@ exports.getProducts = function(req, res,done) {
       res.send(sp)
     })
 };
+exports.dangnhap = function(req, res,done) {
+  var facebookid = req.body.id;
+  var facebookname = req.body.name;
+  var facebookemail = req.body.email;
+  var newUser = User.build ({facebookid:facebookid,facebookname:facebookname,facebookemail:facebookemail});
+  newUser.save().then(function(){done(null,newUser)}).catch(function(err){done(null,false)})
+};
