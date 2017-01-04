@@ -38,6 +38,7 @@ exports.queryTopProduct = function(req, res,done) {
     Product.findAll({
       limit: pageSize,
       offset: offSet,
+      attributes: ['name','unit_price','id','image','createdAt','view'],
       order: '"view" DESC'
     }).then(function(sp){
       done()
@@ -47,7 +48,8 @@ exports.queryTopProduct = function(req, res,done) {
 };
 exports.queryChitiet = function(req, res,done) {
     Product.findOne({
-      where : {id : req.params.trang}
+      where : {id : req.params.trang},
+      attributes: ['name','promotion_price','id','image','description'],
     }).then(function(product){
       done()
       res.send(product)
@@ -83,7 +85,7 @@ exports.queryProductType = function(req,res,done){
 exports.queryType = function(req,res,done){
   TypeProduct.findAll({
     order: '"id" ASC',
-    attributes: ['route','name','id','image','description']
+    attributes: ['name','id','image']
   }).then(function(type){
     res.send(type)
   })
