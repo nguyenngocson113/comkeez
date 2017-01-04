@@ -142,14 +142,15 @@ exports.binhluan = function(req,res,done){
   var idUser = req.body.idUser;
   var binhluan = req.body.binhluan;
   console.log('--------------------');
-  var newComment = Comment.build({idPost:idPost,userId:idUser,content:binhluan});
+  var newComment = Comment.build ({idPost:idPost,userId:idUser,content:binhluan});
   newComment.save().then(function(){done(null,newComment)}).catch(function(err){done(null,false)})
 };
 exports.getbinhluan = function (req,res,done) {
   Comment.findAll({
     where:{idPost:req.params.trang},
     attributes:['content'],
-    include:[{model:User,attributes:['facebookname','facebookid']}]
+    include:[{model:User,attributes:['facebookname','facebookid']}],
+    raw: true
   }).then(function(cmt){
     res.send(cmt)
   })
