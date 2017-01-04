@@ -140,10 +140,10 @@ exports.dangnhap = function(req, res,done) {
 };
 exports.binhluan = function(req,res,done){
   var idPost = req.body.idPost;
-  var idUser = req.body.idUser;
+  var idUser = parseInt(req.body.idUser);
   var binhluan = req.body.binhluan;
   var newComment = Comment.build ({idPost:idPost,userId:idUser,content:binhluan});
-    newComment.save().then(function(){done(null,newComment)}).catch(function(err){done(null,false)})
+  newComment.save().then(function(){done(null,newComment)}).catch(function(err){done(null,false)})
 };
 exports.getbinhluan = function (req,res,done) {
   Comment.findAll({
