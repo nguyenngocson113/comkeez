@@ -10,10 +10,6 @@ module.exports = function(sequelize, DataTypes) {
 	return sequelize.define('admin', {
 		localemail			: DataTypes.STRING,
 		localpassword		: DataTypes.STRING,
-		facebookid		  : DataTypes.STRING,
-		facebooktoken   : DataTypes.STRING,
-		facebookemail   : DataTypes.STRING,
-		facebookname    : DataTypes.STRING,
 	},
 	{
 		classMethods: {
