@@ -20,6 +20,9 @@ router.get('/getProductType/:typeId/:trang', FilesController.queryProductType);/
 router.get('/getTypes', FilesController.queryType);// lay ra loai sp
 router.get('/getProducts', FilesController.getProducts);
 router.post('/dangnhap', FilesController.dangnhap);
+router.post('/binhluan', FilesController.binhluan);
+router.get('/getbinhluan/:trang', FilesController.getbinhluan);
+
 
     // router.get('/getNewProduct/:trang', FilesController.getNewProduct);
 // router.get('/getNewProduct/:trang', FilesControllerWeb.getNewProduct);
