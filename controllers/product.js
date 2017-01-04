@@ -23,6 +23,7 @@ exports.queryNewProduct = function(req, res,done) {
     Product.findAll({
       limit: pageSize,
       offset: offSet,
+      attributes: ['name','unit_price','id','image','createdAt'],
       order: '"createdAt" DESC'
     }).then(function(sp){
       done()
