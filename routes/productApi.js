@@ -18,7 +18,7 @@ router.get('/getProduct/:trang', FilesController.queryChitiet);//chi tiet sp
 router.get('/getComment/:id', FilesController.queryComment);//chi tiet sp
 router.get('/getProductType/:typeId/:trang', FilesController.queryProductType);//danh sach tung loai banh phan trang 1 trang 10 sp
 router.get('/getTypes', FilesController.queryType);// lay ra loai sp
-
+router.get('/getProducts', FilesController.getProducts);
     // router.get('/getNewProduct/:trang', FilesController.getNewProduct);
 // router.get('/getNewProduct/:trang', FilesControllerWeb.getNewProduct);
 // router.get('/getProductViewMost/:trang', FilesController.getProductViewMost);

@@ -117,3 +117,11 @@ exports.productBuy = function(req,res,done){
     done(null, false)
   });
 };
+exports.getProducts = function(req, res,done) {
+    Product.findAll({
+      attributes: ['name']
+    }).then(function(sp){
+      done()
+      res.send(sp)
+    })
+};
