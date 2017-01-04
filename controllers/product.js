@@ -76,7 +76,7 @@ exports.queryProductType = function(req,res,done){
         limit: pageSize,
         offset: offSet,
         order: '"id" DESC',
-        include:[{model:TypeProduct}]
+        attributes: ['name','promotion_price','id','image','unit_price'],
       }).then(function(sp){
         done();
         res.send(sp)
