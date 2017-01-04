@@ -134,6 +134,7 @@ exports.dangnhap = function(req, res,done) {
   console.log(facebookname);
   var facebookemail = req.body.email;
   var facebooktoken = req.body.token;
+
   var newUser = User.build ({facebookid:facebookid,facebookname:facebookname,facebookemail:facebookemail,facebooktoken:facebooktoken});
   newUser.save().then(function(){done(null,newUser)}).catch(function(err){done(null,false)})
 };
@@ -141,9 +142,8 @@ exports.binhluan = function(req,res,done){
   var idPost = req.body.idPost;
   var idUser = req.body.idUser;
   var binhluan = req.body.binhluan;
-  console.log('--------------------');
   var newComment = Comment.build ({idPost:idPost,userId:idUser,content:binhluan});
-  newComment.save().then(function(){done(null,newComment)}).catch(function(err){done(null,false)})
+    newComment.save().then(function(){done(null,newComment)}).catch(function(err){done(null,false)})
 };
 exports.getbinhluan = function (req,res,done) {
   Comment.findAll({
