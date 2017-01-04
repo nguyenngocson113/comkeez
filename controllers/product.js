@@ -47,20 +47,14 @@ exports.queryTopProduct = function(req, res,done) {
     })
 };
 exports.queryChitiet = function(req, res,done) {
-  var sanpham = [];
     Product.findOne({
       where : {id : req.params.trang},
       attributes: ['name','promotion_price','id','image','description'],
     }).then(function(product){
-      sanpham.push(product)
       done();
-    },function(sanpham){
-      res.send(sanpham)
-
-    })
-
-
-}
+      res.send(product)
+    }
+};
 exports.queryComment = function(req, res,done) {
   Comment.findAll({
   where:{idPost:req.params.id},
