@@ -104,7 +104,7 @@ exports.productBuy = function(req,res,done){
   var phone = req.body.phone;
   var totalPrice = req.body.total;
   var product = req.body.products;
-  var newBill = Bill.build ({email:email,address:address,name:name,total:totalPrice});
+  var newBill = Bill.build ({email:email,address:address,name:name,total:totalPrice,phone:phone});
   newBill.save()
   .then(function() {
     done (null, newBill)
