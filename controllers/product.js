@@ -53,7 +53,7 @@ exports.queryChitiet = function(req, res,done) {
     }).then(function(product){
       done();
       res.send(product)
-    }
+    })
 };
 exports.queryComment = function(req, res,done) {
   Comment.findAll({
