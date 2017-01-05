@@ -6,7 +6,6 @@ var sequelize = new Sequelize(configDB.url);
 var DetailBill = sequelize.import('../models/detailBill');
 var User = sequelize.import('../models/user')
 var Comment = sequelize.import('../models/comment')
-var Cart = require('../models/cart');
 var Bill = sequelize.import('../models/bill')
 var Product   = sequelize.import('../models/product');
 var TypeProduct = sequelize.import('../models/typeProduct')
@@ -157,13 +156,16 @@ exports.binhluan = function(req, res,done) {
   newComment.save().then(function(){done(null,newComment)}).catch(function(err){done(null,false)});
   console.log(newComment);
 };
-exports.getbinhluan = function (req,res,done) {
-  Comment.findAll({
-    where:{idPost:req.params.trang},
-    attributes:['content'],
-    include:[{model:User,attributes:['facebookname','facebookid']}],
-    raw: true
-  }).then(function(cmt){
-    res.send(cmt)
-  })
-}
+exports.binhluan = function(req,res,done){
+  var idPost = req.body.idPost;
+  var idUser = req.body.idUser;
+  var content = req.body.binhluan;
+  var newComment = Comment.build ({idPost:idPost,userId: idUser,content:content});
+  newComment.save()
+  .then(function() {
+    done (null, newComment)
+    console.log(newComment.content)
+  }).catch(function(err) {
+    done(null, false)
+  });
+};
