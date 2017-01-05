@@ -149,14 +149,20 @@ exports.binhluan = function(req,res,done){
   var idPost = req.body.idPost;
   var idUser = req.body.idUser;
   var content = req.body.binhluan;
-  var newComment = Comment.build ({idPost:idPost,userId: idUser,content:content});
-  newComment.save()
-  .then(function() {
-    done (null, newComment)
-    console.log(newComment.content)
-  }).catch(function(err) {
-    done(null, false)
-  });
+  User.findOne({
+    where: {facebookid:idUser},
+    attributes: ['id']
+  }).then(function(id){
+    var newComment = Comment.build ({idPost:idPost,userId: id,content:content});
+    newComment.save()
+    .then(function() {
+      done (null, newComment)
+      console.log(newComment.content)
+    }).catch(function(err) {
+      done(null, false)
+    });
+  })
+
 };
 exports.getbinhluan = function (req,res,done) {
   Comment.findAll({
