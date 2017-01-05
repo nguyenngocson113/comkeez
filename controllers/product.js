@@ -147,12 +147,14 @@ exports.dangnhap = function(req, res,done) {
 };
 exports.binhluan = function(req,res,done){
   var idPost = req.body.idPost;
+  console.log(idPost);
   var idUser = req.body.idUser;
   var content = req.body.binhluan;
   User.findOne({
     where: {facebookid:idUser},
     attributes: ['id']
   }).then(function(id){
+    console.log(id);
     var newComment = Comment.build ({idPost:idPost,userId: id,content:content});
     newComment.save()
     .then(function() {
