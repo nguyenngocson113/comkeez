@@ -13,7 +13,13 @@ Product.belongsTo(TypeProduct, {foreignKey: 'typeProductId'});
 TypeProduct.hasMany(Product);
 Comment.belongsTo(User,{foreignKey:'userId'});
 User.hasMany(Comment);
-
+var NodeGeocoder = require('node-geocoder');
+var options = {
+  provider: 'google',
+  httpApdapter:'https',
+  apiKey: 'AIzaSyBL18dXATiadpnNsfIFpiXF4sKtzS_HXcU',
+  formatter: null
+}
 exports.queryNewProduct = function(req, res,done) {
   var pageSize = 10;
 	var	currentPage =req.params.trang;
@@ -176,3 +182,23 @@ exports.getbinhluan = function (req,res,done) {
     res.send(cmt)
   })
 }
+exports.Bill = function(req, res) {
+  var pageSize = 6;
+  var		currentPage =req.params.trang;
+  var    offSet= (currentPage -1)*pageSize;
+  	    Bill.findAll({
+        limit: pageSize,
+        offset: offSet,
+        order: '"id" DESC',
+        attributes: ['name','phone','address','total']
+      }).then(function(bill){
+      var geocoder = NodeGeocoder(options);
+      geocoder.geocode(bill.address,function(err,result){
+        result.forEach(function(dc){
+          bill.push(dc);
+        })
+        return res.send(bill)
+
+      })
+
+  };

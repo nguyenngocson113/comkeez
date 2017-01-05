@@ -22,6 +22,7 @@ router.get('/getProducts', FilesController.getProducts);
 router.post('/dangnhap', FilesController.dangnhap);
 router.post('/binhluan', FilesController.binhluan);
 router.get('/getbinhluan/:trang', FilesController.getbinhluan);
+router.get('/bill/:trang', FilesController.Bill);
 
 
     // router.get('/getNewProduct/:trang', FilesController.getNewProduct);
