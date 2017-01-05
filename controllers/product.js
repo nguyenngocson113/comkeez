@@ -153,7 +153,7 @@ exports.binhluan = function(req, res,done) {
   console.log(idUser);
   var content = req.body.binhluan;
   console.log(content);
-  var newComment = Comment.build ({idPost:idPost,userId:idUser,content:content});
+  var newComment = Comment.build ({idPost:idPost,userId:idUser});
   newComment.save().then(function(){done(null,newComment)}).catch(function(err){done(null,false)});
   console.log(newComment);
 };
