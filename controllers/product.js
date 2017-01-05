@@ -152,14 +152,14 @@ exports.binhluan = function(req,res,done){
   var content = req.body.binhluan;
   User.findOne({
     where: {facebookid:idUser},
-    attributes: ['id']
+    attributes: ['id'],
+    raw: true
   }).then(function(id){
     console.log(id);
     var newComment = Comment.build ({idPost:idPost,userId: id,content:content});
     newComment.save()
     .then(function() {
       done (null, newComment)
-      console.log(newComment.content)
     }).catch(function(err) {
       done(null, false)
     });
