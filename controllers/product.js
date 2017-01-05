@@ -134,16 +134,28 @@ exports.dangnhap = function(req, res,done) {
   console.log(facebookname);
   var facebookemail = req.body.email;
   var facebooktoken = req.body.token;
+  User.findOne({where:{facebookid:facebookid}}).then(function(user){
+    if(user = null){
+      var newUser = User.build ({facebookid:facebookid,facebookname:facebookname,facebookemail:facebookemail,facebooktoken:facebooktoken});
+      newUser.save().then(function(){done(null,newUser)}).catch(function(err){done(null,false)})
+    }else {
+      user.name = facebookname;
+      user.email = facebookemail;
+    }
+  })
 
-  var newUser = User.build ({facebookid:facebookid,facebookname:facebookname,facebookemail:facebookemail,facebooktoken:facebooktoken});
-  newUser.save().then(function(){done(null,newUser)}).catch(function(err){done(null,false)})
 };
-exports.binhluan = function(req,res,done){
+exports.binhluan = function(req, res,done) {
   var idPost = req.body.idPost;
-  var idUser = parseInt(req.body.idUser);
-  var binhluan = req.body.binhluan;
-  var newComment = Comment.build ({idPost:idPost,userId:idUser,content:binhluan});
-  newComment.save().then(function(){done(null,newComment)}).catch(function(err){done(null,false)})
+  console.log(idPost);
+  var idUser = req.body.idUser;
+  console.log(idUser);
+  var content = req.body.binhluan;
+  console.log(content);
+
+  var newComment = Comment.build ({idPost:idPost,userId:idUser,content:content});
+  newComment.save().then(function(){done(null,newComment)}).catch(function(err){done(null,false)});
+  console.log(newComment);
 };
 exports.getbinhluan = function (req,res,done) {
   Comment.findAll({
