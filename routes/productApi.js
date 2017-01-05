@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var FilesController = require('../controllers/product');
 var configDB = require('../config/database.js');
-// var FilesControllerWeb = require('../controllers/product_web');
 
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize(configDB.url);
@@ -21,7 +20,7 @@ router.get('/getProductType/:typeId/:trang', FilesController.queryProductType);/
 router.get('/getTypes', FilesController.queryType);// lay ra loai sp
 router.get('/getProducts', FilesController.getProducts);
 router.post('/dangnhap', FilesController.dangnhap);
-// router.post('/comm', FilesController.binhluan);
+router.post('/binhluan', FilesController.binhluan);
 router.get('/getbinhluan/:trang', FilesController.getbinhluan);
 
 
