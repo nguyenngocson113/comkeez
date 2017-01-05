@@ -362,7 +362,7 @@ exports.checkOut = function(req,res,done){
   });
 };
 
-exports.binhluan = function(req,res,done){
+exports.comment = function(req,res,done){
   var idPost = req.body.idPost;
   var idUser = req.body.idUser;
   var content = req.body.binhluan;
