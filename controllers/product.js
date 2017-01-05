@@ -139,8 +139,8 @@ exports.dangnhap = function(req, res,done) {
       var newUser = User.build ({facebookid:facebookid,facebookname:facebookname,facebookemail:facebookemail,facebooktoken:facebooktoken});
       newUser.save().then(function(){done(null,newUser)}).catch(function(err){done(null,false)})
     }else {
-      user.name = facebookname;
-      user.email = facebookemail;
+      user.facebookname = facebookname;
+      user.facebookemail = facebookemail;
     }
   })
 
