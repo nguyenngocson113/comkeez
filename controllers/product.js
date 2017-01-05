@@ -190,19 +190,22 @@ exports.Bill = function(req, res) {
         limit: pageSize,
         offset: offSet,
         order: '"id" DESC',
-        attributes: ['name','phone','address','total']
+        attributes: ['id','name','phone','address','total']
       }).then(function(bill){
-      var geocoder = NodeGeocoder(options);
-      bill.forEach(function(bill){
-        geocoder.geocode(bill.address,function(err,result){
-          result.forEach(function(dc){
-            console.log(dc.latitude);
-            console.log(dc.longitude);
-          })
-
+        res.send(bill)
       })
-    })
-      res.send(bill)
-    })
-
   };
+  exports.address = function(req, res) {
+      var a = []
+      var id = req.body.id
+    	    Bill.findOne({
+          where: {id: id},
+          attributes: ['address']
+        }).then(function(address){
+          var geocoder = NodeGeocoder(options);
+          geocoder.geocode(address,function(err,result){
+            a.push(result[0].latitude, result[0].longitude);
+            res.send(a)
+          })
+        })
+    };

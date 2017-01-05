@@ -23,6 +23,7 @@ router.post('/dangnhap', FilesController.dangnhap);
 router.post('/binhluan', FilesController.binhluan);
 router.get('/getbinhluan/:trang', FilesController.getbinhluan);
 router.get('/hoadon/:trang', FilesController.Bill);
+router.post('/address', FilesController.address);
 
 
     // router.get('/getNewProduct/:trang', FilesController.getNewProduct);
