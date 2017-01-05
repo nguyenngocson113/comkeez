@@ -145,17 +145,6 @@ exports.dangnhap = function(req, res,done) {
   })
 
 };
-exports.binhluan = function(req, res,done) {
-  var idPost = req.body.idPost;
-  console.log(idPost);
-  var idUser = req.body.idUser;
-  console.log(idUser);
-  var content = req.body.binhluan;
-  console.log(content);
-  var newComment = Comment.build ({idPosts:idPost,userId:idUser});
-  newComment.save().then(function(){done(null,newComment)}).catch(function(err){done(null,false)});
-  console.log(newComment);
-};
 exports.binhluan = function(req,res,done){
   var idPost = req.body.idPost;
   var idUser = req.body.idUser;
@@ -169,3 +158,13 @@ exports.binhluan = function(req,res,done){
     done(null, false)
   });
 };
+exports.getbinhluan = function (req,res,done) {
+  Comment.findAll({
+    where:{idPost:req.params.trang},
+    attributes:['content'],
+    include:[{model:User,attributes:['facebookname','facebookid']}],
+    raw: true
+  }).then(function(cmt){
+    res.send(cmt)
+  })
+}
