@@ -195,7 +195,7 @@ exports.Bill = function(req, res) {
       var geocoder = NodeGeocoder(options);
       bill.forEach(function(bill){
         geocoder.geocode(bill.address,function(err,result){
-          console.log(bill.address);
+          console.log(result);
       })
       })
     })
