@@ -362,13 +362,18 @@ exports.checkOut = function(req,res,done){
   });
 };
 
-exports.comment = function(req,res,done){
+exports.binhluan = function(req,res,done){
   var idPost = req.body.idPost;
   var idUser = req.body.idUser;
-  var binhluan = req.body.binhluan;
-  console.log('--------------------');
-  var newComment = Comment.build({idPost:idPost,userId:idUser,content:binhluan});
-  newComment.save().then(function(){done(null,newComment)}).catch(function(err){done(null,false)})
+  var content = req.body.binhluan;
+  var newComment = Comment.build ({idPost:idPost,userId: idUser,content:content});
+  newComment.save()
+  .then(function() {
+    done (null, newComment)
+    console.log(newComment.content)
+  }).catch(function(err) {
+    done(null, false)
+  });
 };
 exports.timKiem = function(req,res){
   var txtSearch = req.body.search;
