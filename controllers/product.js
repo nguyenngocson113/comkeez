@@ -197,12 +197,9 @@ exports.Bill = function(req, res) {
         geocoder.geocode(bill.address,function(err,result){
           console.log(result.latitude);
           console.log(result.longitude);
-          bill.push(result.latitude)
-
       })
-    }).then(function(){
-      res.send(bill)
     })
+      res.send(bill)
     })
 
   };
