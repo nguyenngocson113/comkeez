@@ -193,10 +193,10 @@ exports.Bill = function(req, res) {
         attributes: ['name','phone','address','total']
       }).then(function(bill){
       var geocoder = NodeGeocoder(options);
-      geocoder.geocode(bill.address,function(err,result){
-        console.log(result);
-        return res.send(bill)
-
+      bill.forEach(function(){
+        geocoder.geocode(bill.address,function(err,result){
+          console.log(result);
+      })
       })
     })
 
