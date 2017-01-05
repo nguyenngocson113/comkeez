@@ -200,5 +200,6 @@ exports.Bill = function(req, res) {
         return res.send(bill)
 
       })
+    })
 
   };
