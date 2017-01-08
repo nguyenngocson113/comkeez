@@ -13,7 +13,7 @@
 					<%})%>
 					</ul>
 				</li>
-			
+
 			<div class="clearfix"></div>
 		</nav>
 
@@ -54,6 +54,7 @@
 					</div>
 
 					</div>
+					<%if (user.facebookid) {%>
 						<%comment.forEach(function(bl){%>
 					<div class="row">
 						<div class="col-md-1">
@@ -75,6 +76,8 @@
 
 					</div>
 					<%})%>
+					<%}%>
+
 
 			<form class="shipping-form"  method="post" role="form" data-toggle="validator" novalidate="false">
 				<div class="col-xs-12 col-md-12">
