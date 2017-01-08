@@ -54,7 +54,7 @@
 					</div>
 
 					</div>
-					<%if (user.facebookid) {%>
+
 						<%comment.forEach(function(bl){%>
 					<div class="row">
 						<div class="col-md-1">
@@ -76,21 +76,20 @@
 
 					</div>
 					<%})%>
-
-								<form class="shipping-form"  method="post" role="form" data-toggle="validator" novalidate="false">
-									<div class="col-xs-12 col-md-12">
-								      <div class="form-group">
-								        <input type="text"  id="binhluan"  placeholder="Viết bình luận">
-												<input type="hidden" id="idface" value="<%=user.id%>">
-												<input type="hidden" id="idPost" value="<%=sp.id%>">
-								      </div>
-								  </div>
-								<div class="text-right col-xs-2 col-md-6">
-										<a id="comment" class="btn btn-default">Bình luận</a>
+					<%if (user) {%>
+						<form class="shipping-form"  method="post" role="form" data-toggle="validator" novalidate="false">
+							<div class="col-xs-12 col-md-12">
+									<div class="form-group">
+										<input type="text"  id="binhluan"  placeholder="Viết bình luận">
+										<input type="hidden" id="idface" value="<%=user.id%>">
+										<input type="hidden" id="idPost" value="<%=sp.id%>">
 									</div>
-							</form>
+							</div>
+						<div class="text-right col-xs-2 col-md-6">
+								<a id="comment" class="btn btn-default">Bình luận</a>
+							</div>
+					</form>
 					<%}%>
-
 
 
 	</div> <!-- #content -->
