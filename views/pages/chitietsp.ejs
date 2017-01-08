@@ -134,7 +134,7 @@
 							</div><!-- /thumbnail -->
 						</div><!-- /col-sm-1 -->
 
-						<div class="col-sm-10">
+						<div class="col-sm-11">
 							<div class="panel panel-default">
 								<div class="panel-heading" style="padding:10px">
 									<strong><%=bl.user.facebookname%></strong> <span class="text-muted">commented 5 days ago</span>
@@ -148,25 +148,6 @@
 					</div><!-- /row -->
 					<%})%>
 
-
-
-
-
-					<%comment.forEach(function(bl){%>
-					<div class="chat-panel panel panel-default">
-								<div class="panel-heading">
-									 <div class="row">
-											 <div class="col-xs-1">
-												 <img src="http://graph.facebook.com/<%=bl.user.facebookid%>/picture?type=square" class="img-circle">
-											 </div>
-											 <div class="col-xs-9 text-left">
-											 <div ><%=bl.user.facebookname%></div>
-													 <div style="padding-top: 15px"><%=bl.content%></div>
-											 </div>
-									 </div>
-								 </div>
-					</div>
-			<%})%>
 			<form class="shipping-form"  method="post" role="form" data-toggle="validator" novalidate="false">
 				<div class="col-xs-12 col-md-12">
 			      <div class="form-group">
