@@ -101,9 +101,9 @@
 										</p>
 									</div>
 									<div class="single-item-caption">
-										<a class="add-to-cart" class="add-to-cart pull-left" data-id="<%=sp.id%>"  data-toggle="modal" data-target="#myModal" ><i class="fa fa-shopping-cart"></i></a>
+										<a class="add-to-cart" class="add-to-cart pull-left" data-id="<%=sp.id%>"  data-toggle="modal" data-target="#myModal<%=sp.id%>" ><i class="fa fa-shopping-cart"></i></a>
 										<!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
+  										<div class="modal fade" id="myModal<%=sp.id%>" role="dialog">
     <div class="modal-dialog">
 
       <!-- Modal content-->
@@ -121,7 +121,7 @@
       </div>
 
     </div>
-  </div>
+  											</div>
 										<a class="beta-btn primary" href="/chitiet/<%=sp.id%>">Details <i class="fa fa-chevron-right"></i></a>
 										<div class="clearfix"></div>
 									</div>
